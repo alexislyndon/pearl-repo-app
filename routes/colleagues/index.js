@@ -17,8 +17,8 @@ route
   })
 
   .post("/", async (req, res) => {
-    const { col_id } = await insertColleague(req.body);
-    res.send({ col_id });
+    const result = await insertColleague(req.body);
+    res.send(result);
   });
 
 module.exports = route;

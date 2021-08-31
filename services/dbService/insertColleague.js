@@ -29,5 +29,13 @@ module.exports = async ({
     );
   }
 
-  return { col_id: id };
+  return res = {
+    firstname,
+    lastname,
+    jobtitle,
+    startdate,
+    enddate,
+    personalemail,
+    id,
+  };
 };
