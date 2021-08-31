@@ -1,0 +1,50 @@
+#app {
+  width: 80%;
+  margin: auto;
+  margin-top: 50px;
+}
+
+#colleagues {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+h2 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#colleagues td,
+#colleagues th {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+}
+
+/* #colleagues tr:nth-child(even) {
+  background-color: #f2f2f2;
+} */
+
+#colleagues tr:hover {
+  background-color: #65cbfe;
+  cursor: pointer;
+}
+
+#colleagues th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #f2f2f2;
+  color: black;
+}
+
+.container {
+  position: inherit;
+}
+
+#loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

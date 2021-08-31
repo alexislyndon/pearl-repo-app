@@ -1,0 +1,26 @@
+.sidepanel {
+  width: 0;
+  position: fixed;
+  z-index: 999;
+  height: 100%;
+  top: 0;
+  right: 0;
+  background-color: #caebff;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 30px;
+}
+
+.closebtn {
+  color: red;
+  padding: 3px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-size: large;
+  text-decoration: none;
+}
+
+.col-view {
+  padding: 20px;
+}

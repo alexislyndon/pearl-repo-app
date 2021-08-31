@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="modal.css" />
+    <link rel="stylesheet" href="sidepanel.css" />
+    <script src="jquery.js"></script>
+    <script src="app.js"></script>
+    <script src="newColleague.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container"><img src="Infinity-1s-200px.svg" alt="" srcset="" id="loader" style="display: none;"></div>
+      <div id="mySidepanel" class="sidepanel"></div>
+      <div id="myModal" class="modal"></div>
+      <div><img src="/PearlPay-Logo.png" alt="" style="height: 40px" /></div>
+      <span>
+        <h2 style="display: inline">Colleages</h2>
+        <button id="add-colleague" style="margin: 20px; width: 40px; height: 25px;">Add</button>
+      </span>
+      <table id="colleagues">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email Address</th>
+            <th>Job Title</th>
+            <th>Workgroup</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% colleagues.map((i) =>{ %>
+          <tr data-col-id="<%= i.id%>" oncontextmenu="javascript:alert('success!');return false;">
+            <td><%= i.firstname + " " + i.lastname %></td>
+            <td><%= i.personalemail %></td>
+            <td><%= i.jobtitle %></td>
+            <td>some workgroup</td>
+            <td>
+              <%= i.startdate.toLocaleDateString("en-US", {month:'short', day:
+              'numeric', year: 'numeric'}) %>
+            </td>
+            <td>
+              <%= i.enddate?.toLocaleDateString("en-US", {month:'short', day:
+              'numeric', year: 'numeric'}) %>
+            </td>
+            <!-- <td><a href="javascript:" class="view-link">View</a></td> -->
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
