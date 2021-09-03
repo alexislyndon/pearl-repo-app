@@ -13,28 +13,31 @@ if(enddate) {
 }
 
 %> 
-
-
-  <input type="hidden" name="id" value="<%= id %>" />
-  <label for="firstname">First Name</label>
-  <input type="text" name="firstname" id="" value="<%= firstname%>">
-  <br>
-  <label for="lastname">Last Name</label>
-  <input type="text" name="lastname" value="<%= lastname%>" />
-  <br>
-  <label for="jobtitle">Job Title</label>
-  <input type="text" name="jobtitle" value="<%= jobtitle%>" />
-  <br>
-  <label for="startdate">Start Date</label>
-  <input type="date" name="startdate" value="<%=
-  startdate.toISOString().split('T')[0] %>" />
-  <br>
-  <label for="enddate">End Date</label>
-  <input type="date" name="enddate" value="<%=
-  enddate?.toISOString().split('T')[0] %>" />
-  <br>
-  <label for="personalemail">Personal Email</label>
-  <input type="email" name="personalemail" value="<%= personalemail%>" />
-  <br>
-  <input type="date" name="" id="" value="">
+<h2>View Colleague</h2>
+  <form action="" class="view" >
+    <input type="hidden" name="id" value="<%= id %>" />
+    <label for="firstname">First Name</label>
+    <input type="text" name="firstname" id="" value="<%= firstname%>">
+    <br>
+    <label for="lastname">Last Name</label>
+    <input type="text" name="lastname" value="<%= lastname%>" />
+    <br>
+    <label for="jobtitle">Job Title</label>
+    <input type="text" name="jobtitle" value="<%= jobtitle%>" />
+    <br>
+    <label for="startdate">Start Date</label>
+    <input type="date" name="startdate" value="<%=
+    startdate.toISOString().split('T')[0] %>" />
+    <br>
+    <label for="enddate">End Date</label>
+    <input type="date" name="enddate" value="<%=
+    enddate?.toISOString().split('T')[0] %>" />
+    <br>
+    <label for="personalemail">Personal Email</label>
+    <input type="email" name="personalemail" value="<%= personalemail%>" />
+    <br><br>
+    <input type="submit" value="Save" id="save-btn">
+    <input type="button" value="Delete" id="delete-btn" >
+  </form> 
 </div>
+<script src="/viewColleague.js"></script>

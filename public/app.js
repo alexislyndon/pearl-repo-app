@@ -1,3 +1,92 @@
+$(window).on('hashchange', function () {
+
+  var url = location.hash.replace(/#/g,'')
+// debugger
+  if(!url) {
+
+      return $('#content').empty()
+  }
+
+  if(url.substring(0,1) !== '/') {
+
+      url = '/' + url
+  }
+
+//  location.hash = url;
+  ////////changed
+  app.ajax({
+
+      url: url,
+      success: function(response) {
+
+          $('#content').html(response)
+      }
+  })
+})
+
+var app = (function () {
+
+  function bindScripts(html) {
+
+      var scriptAttr = html.parent().find('[data-scripts]');
+
+      if (!scriptAttr[0]) return;
+
+      for (var item of scriptAttr) {
+
+          item = $(item)
+
+          var scriptName = item.data('scripts');
+
+          item.removeAttr('data-scripts');
+
+          // if (!scriptName) throw 'scriptname is empty';
+          if (scriptName) {
+
+              for (var name of scriptName.split(' ')) {
+
+                  var target = modules[name];
+
+                  if (!target) return
+
+                  target(item);
+              }
+          }
+      }
+  }
+
+  return {
+
+      ajax: function (options) {
+
+          if (options.success) {
+
+              var success = options.success
+
+              options.success = function (response, textStatus, xhr) {
+
+                  var ishtml = /<\/?[a-z][\s\S]*>/i.test(response)
+
+                  if (ishtml) {
+
+                      response = $(response)
+                  }
+
+                  success(response, textStatus, xhr)
+
+                  if (ishtml) {
+
+                      bindScripts(response)
+                  }
+              }
+          }
+
+          $.ajax(options)
+      }
+  }
+})() ///
+
+///////////////////
 $.ajaxSetup({
   beforeSend: function () {
     $("#loader").show();

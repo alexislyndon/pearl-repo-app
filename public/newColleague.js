@@ -1,6 +1,8 @@
 $(function () {
-//   var modal = $('#myModal');
+  //   var modal = $('#myModal');
   var modal = document.getElementById("myModal");
+  var sidepanel = document.getElementById("mySidepanel");
+  var selectedID;
 
   $("form.new").on("submit", function (e) {
     e.preventDefault();
@@ -15,9 +17,11 @@ $(function () {
       success: function (res) {
         console.log("yay!");
         // debugger
-        var html = `
-        <tr data-col-id="${res.id}" oncontextmenu="javascript:alert('success!');return false;">
-        <td>${res.firstname +" "+res.lastname}</td>
+        var tr = $(`
+        <tr data-col-id="${
+          res.id
+        }" oncontextmenu="javascript:alert('success!');return false;">
+        <td>${res.firstname + " " + res.lastname}</td>
         <td>${res.personalemail}</td>
         <td>${res.jobtitle}</td>
         <td>some workgroup</td>
@@ -29,10 +33,33 @@ $(function () {
         </td>
         <!-- <td><a href="javascript:" class="view-link">View</a></td> -->
         </tr>
-        `;
-        $('#colleagues tbody').append(html);
+        `);
+        $("#colleagues tbody").append(tr);
+
+        tr.on("click", function () {
+          var tr = $(this);
+          var colID = tr.data("col-id");
+          if (selectedID) {
+            //just closes the sidepanel
+            sidepanel.style.width = "0px";
+            selectedID = "";
+          } else {
+            $.ajax({
+              url: "/colleagues/" + colID,
+              success: function (res) {
+                $(".sidepanel").html(res);
+                sidepanel.style.width = "400px";
+                selectedID = colID;
+              },
+            });
+          }
+        });
         modal.style.display = "none";
-        form.find(".success-msg").show().delay(3000).fadeOut();
+        $(".success-msg")
+          .html("Added Successfully")
+          .show()
+          .delay(2500)
+          .fadeOut();
       },
     });
   });
