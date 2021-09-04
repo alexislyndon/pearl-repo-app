@@ -1,90 +1,82 @@
-$(window).on('hashchange', function () {
+var modules = {};
+var modal = document.getElementById("myModal");
+var selectedID;
+var sidepanel = $("#mySidepanel")
 
-  var url = location.hash.replace(/#/g,'')
-// debugger
-  if(!url) {
-
-      return $('#content').empty()
+$(window).on("hashchange", function () {
+  var url = location.hash.replace(/#/g, "");
+  // debugger;
+  if (!url) {
+    return $("#mySidepanel").empty();
   }
 
-  if(url.substring(0,1) !== '/') {
-
-      url = '/' + url
+  if (url.substring(0, 1) !== "/") {
+    url = "/" + url;
   }
 
-//  location.hash = url;
+  // location.hash = url;
   ////////changed
   app.ajax({
-
-      url: url,
-      success: function(response) {
-
-          $('#content').html(response)
-      }
-  })
-})
+    url: url,
+    success: function (response) {
+      selectedID = url.split("/").pop();
+      debugger
+      $("#mySidepanel").html(response).width(400);
+      // sidepanel.style.width = "400px";
+    },
+  });
+});
 
 var app = (function () {
-
   function bindScripts(html) {
+    var scriptAttr = html.parent().find("[data-scripts]");
 
-      var scriptAttr = html.parent().find('[data-scripts]');
+    if (!scriptAttr[0]) return;
 
-      if (!scriptAttr[0]) return;
+    for (var item of scriptAttr) {
+      item = $(item);
 
-      for (var item of scriptAttr) {
+      var scriptName = item.data("scripts");
 
-          item = $(item)
+      item.removeAttr("data-scripts");
 
-          var scriptName = item.data('scripts');
+      // if (!scriptName) throw 'scriptname is empty';
+      if (scriptName) {
+        for (var name of scriptName.split(" ")) {
+          var target = modules[name];
 
-          item.removeAttr('data-scripts');
+          if (!target) return;
 
-          // if (!scriptName) throw 'scriptname is empty';
-          if (scriptName) {
-
-              for (var name of scriptName.split(' ')) {
-
-                  var target = modules[name];
-
-                  if (!target) return
-
-                  target(item);
-              }
-          }
+          target(item);
+        }
       }
+    }
   }
 
   return {
+    ajax: function (options) {
+      if (options.success) {
+        var success = options.success;
 
-      ajax: function (options) {
+        options.success = function (response, textStatus, xhr) {
+          var ishtml = /<\/?[a-z][\s\S]*>/i.test(response);
 
-          if (options.success) {
-
-              var success = options.success
-
-              options.success = function (response, textStatus, xhr) {
-
-                  var ishtml = /<\/?[a-z][\s\S]*>/i.test(response)
-
-                  if (ishtml) {
-
-                      response = $(response)
-                  }
-
-                  success(response, textStatus, xhr)
-
-                  if (ishtml) {
-
-                      bindScripts(response)
-                  }
-              }
+          if (ishtml) {
+            response = $(response);
           }
 
-          $.ajax(options)
+          success(response, textStatus, xhr);
+
+          if (ishtml) {
+            bindScripts(response);
+          }
+        };
       }
-  }
-})() ///
+
+      $.ajax(options);
+    },
+  };
+})(); ///
 
 ///////////////////
 $.ajaxSetup({
@@ -104,26 +96,25 @@ $(function () {
   // };
   // // When the user clicks anywhere outside of the modal, close it
 
-  var sidepanel = document.getElementById("mySidepanel");
-  var modal = document.getElementById("myModal");
-  var selectedID;
-
   $("table tbody tr").on("click", function () {
     var tr = $(this);
     var colID = tr.data("col-id");
-    if (selectedID) {
+    // debugger
+    if (selectedID) { //if there something selected
       //just closes the sidepanel
-      sidepanel.style.width = "0px";
+      $(".sidepanel").width(0);
       selectedID = "";
+      location.hash = ""
     } else {
-      $.ajax({
-        url: "/colleagues/" + colID,
-        success: function (res) {
-          $(".sidepanel").html(res);
-          sidepanel.style.width = "400px";
-          selectedID = colID;
-        },
-      });
+      location.hash = "/colleagues/" + colID;
+      // app.ajax({
+      //   url: "/colleagues/" + colID,
+      //   success: function (res) {
+      //     $(".sidepanel").html(res);
+      //     sidepanel.style.width = "400px";
+      //     selectedID = colID;
+      //   },
+      // });
     }
   });
 
@@ -134,7 +125,7 @@ $(function () {
   });
 
   $("#add-colleague").on("click", function () {
-    $.ajax({
+    app.ajax({
       url: "/colleagues/new",
       success: function (res) {
         $("#myModal").html(res);
@@ -154,7 +145,7 @@ $(function () {
     }
   };
 
-  var side = $(".sidepanel").find("*").addBack();
+  // var side = $(".sidepanel").find("*").addBack();
 
   // $("html > *")
   //   .not(side)
@@ -167,16 +158,16 @@ $(function () {
   //   });
 
   //
+  
   const target = document.querySelector(".sidepanel");
-
   document.addEventListener("click", (event) => {
     const withinBoundaries = event.composedPath().includes(target);
 
-    if (selectedID) {
+    if (selectedID) { //if sidepanel is open
       if (withinBoundaries) {
         // target.innerText = "Click happened inside element";
       } else {
-        sidepanel.style.width = "0px";
+        $(".sidepanel").width(0);
         selectedID = "";
       }
     }
@@ -185,3 +176,4 @@ $(function () {
 
   //end
 });
+$(window).trigger("hashchange");

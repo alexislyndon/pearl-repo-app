@@ -44,7 +44,7 @@ $(function () {
             sidepanel.style.width = "0px";
             selectedID = "";
           } else {
-            $.ajax({
+            app.ajax({
               url: "/colleagues/" + colID,
               success: function (res) {
                 $(".sidepanel").html(res);
