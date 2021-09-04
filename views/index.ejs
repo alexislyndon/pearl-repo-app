@@ -8,24 +8,31 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="modal.css" />
     <link rel="stylesheet" href="sidepanel.css" />
-    <script src="jquery.js"></script>
-    <script src="jquery-hashchange.js"></script>
-    <script src="app.js"></script>
-    <script src="newColleague.js"></script>
   </head>
   <body>
     <div id="app">
-      <div class="container"><img src="Infinity-1s-200px.svg" alt="" srcset="" id="loader" style="display: none;"></div>
+      <div class="container">
+        <img
+          src="Infinity-1s-200px.svg"
+          alt=""
+          srcset=""
+          id="loader"
+          style="display: none"
+        />
+      </div>
       <div id="mySidepanel" class="sidepanel"></div>
       <div id="myModal" class="modal"></div>
       <div><img src="/PearlPay-Logo.png" alt="" style="height: 40px" /></div>
       <span>
         <h2 style="display: inline">Colleages</h2>
-        <button id="add-colleague" style="margin: 20px; width: 40px; height: 25px;">Add</button>
+        <button
+          id="add-colleague"
+          style="margin: 20px; width: 40px; height: 25px"
+        >
+          Add
+        </button>
       </span>
-      <div class="success-msg">
-        This is a success message.
-      </div>
+      <div class="success-msg">This is a success message.</div>
       <table id="colleagues">
         <thead>
           <tr>
@@ -40,7 +47,10 @@
         </thead>
         <tbody>
           <% colleagues.map((i) =>{ %>
-          <tr data-col-id="<%= i.id%>" oncontextmenu="javascript:alert('success!');return false;">
+          <tr
+            data-col-id="<%= i.id%>"
+            oncontextmenu="javascript:alert('success!');return false;"
+          >
             <td><%= i.firstname + " " + i.lastname %></td>
             <td><%= i.personalemail %></td>
             <td><%= i.jobtitle %></td>
@@ -59,6 +69,10 @@
         </tbody>
       </table>
     </div>
-
   </body>
+  <script src="jquery.js"></script>
+  <script src="jquery-hashchange.js"></script>
+  <script src="app.js"></script>
+  <script src="newColleague.js"></script>
+  <script src="viewColleague.js"></script>
 </html>

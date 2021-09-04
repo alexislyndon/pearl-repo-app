@@ -1,7 +1,8 @@
 var modules = {};
+// var modal = $("#myModal");
 var modal = document.getElementById("myModal");
 var selectedID;
-var sidepanel = $("#mySidepanel")
+var sidepanel = $("#mySidepanel");
 
 $(window).on("hashchange", function () {
   var url = location.hash.replace(/#/g, "");
@@ -20,7 +21,7 @@ $(window).on("hashchange", function () {
     url: url,
     success: function (response) {
       selectedID = url.split("/").pop();
-      debugger
+      debugger;
       $("#mySidepanel").html(response).width(400);
       // sidepanel.style.width = "400px";
     },
@@ -100,11 +101,12 @@ $(function () {
     var tr = $(this);
     var colID = tr.data("col-id");
     // debugger
-    if (selectedID) { //if there something selected
+    if (selectedID) {
+      //if there something selected
       //just closes the sidepanel
       $(".sidepanel").width(0);
       selectedID = "";
-      location.hash = ""
+      location.hash = "";
     } else {
       location.hash = "/colleagues/" + colID;
       // app.ajax({
@@ -128,19 +130,21 @@ $(function () {
     app.ajax({
       url: "/colleagues/new",
       success: function (res) {
-        $("#myModal").html(res);
-        modal.style.display = "block";
+        $("#myModal").html(res).show();
         // $(modal).fadeIn(500);
       },
     });
   });
 
   window.onclick = function (event) {
+    var modal = document.getElementById("myModal");
+
     if (event.target == modal) {
       // modal.style.display = "none";
       var m = $("#myModal").find("*").addBack();
       $(m).fadeOut(200, function () {
-        modal.style.display = "none";
+        // modal.style.display = "none";
+        $(modal).empty()
       });
     }
   };
@@ -158,17 +162,19 @@ $(function () {
   //   });
 
   //
-  
+
   const target = document.querySelector(".sidepanel");
   document.addEventListener("click", (event) => {
     const withinBoundaries = event.composedPath().includes(target);
 
-    if (selectedID) { //if sidepanel is open
+    if (selectedID) {
+      //if sidepanel is open
       if (withinBoundaries) {
         // target.innerText = "Click happened inside element";
       } else {
         $(".sidepanel").width(0);
         selectedID = "";
+        location.hash = "";
       }
     }
   });

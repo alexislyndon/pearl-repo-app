@@ -1,4 +1,6 @@
-$(function () {
+modules["new-colleague"] = function (html) {
+
+// $(function () {
   //   var modal = $('#myModal');
   var modal = document.getElementById("myModal");
   var sidepanel = document.getElementById("mySidepanel");
@@ -63,4 +65,5 @@ $(function () {
       },
     });
   });
-});
+// });
+}

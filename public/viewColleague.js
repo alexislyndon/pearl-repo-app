@@ -1,4 +1,6 @@
-$(function () {
+modules["view-colleague"] = function (html) {
+
+// $(function () {
   $("form.view").on("submit", function (e) {
     e.preventDefault();
     var form = $(this);
@@ -51,4 +53,5 @@ $(function () {
   });
 
   //end
-});
+// });
+}
