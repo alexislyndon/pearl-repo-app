@@ -4,27 +4,31 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Colleagues?</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="modal.css" />
     <link rel="stylesheet" href="sidepanel.css" />
+    <link rel="stylesheet" href="tabs.css" />
   </head>
   <body>
+    <img
+      src="Infinity-1s-200px.svg"
+      alt=""
+      srcset=""
+      id="loader"
+      style="display: none"
+    />
     <div id="app">
-      <div class="container">
-        <img
-          src="Infinity-1s-200px.svg"
-          alt=""
-          srcset=""
-          id="loader"
-          style="display: none"
-        />
-      </div>
+      <div class="container"></div>
       <div id="mySidepanel" class="sidepanel"></div>
       <div id="myModal" class="modal"></div>
-      <div><img src="/PearlPay-Logo.png" alt="" style="height: 40px" /></div>
+      <div>
+        <a href="/"
+          ><img src="/PearlPay-Logo.png" alt="" style="height: 40px"
+        /></a>
+      </div>
+      <h2 style="display: inline">Colleages</h2>
       <span>
-        <h2 style="display: inline">Colleages</h2>
         <button
           id="add-colleague"
           style="margin: 20px; width: 40px; height: 25px"
@@ -32,6 +36,12 @@
           Add
         </button>
       </span>
+      <div class="tabs">
+        <div class="col-tab"><a href="#/colleagues">Colleagues</a></div>
+        <div class="wg-tab"><a href="#/workgroups">Workgroup</a></div>
+        <div class="app-tab"><a href="#/apps">Apps</a></div>
+        <div class="tab4"><a href="#/appadmingroups">App Admins</a></div>
+      </div>
       <div class="success-msg">This is a success message.</div>
       <table id="colleagues">
         <thead>

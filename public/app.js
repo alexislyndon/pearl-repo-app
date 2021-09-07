@@ -21,9 +21,12 @@ $(window).on("hashchange", function () {
     url: url,
     success: function (response) {
       selectedID = url.split("/").pop();
-      debugger;
-      $("#mySidepanel").html(response).width(400);
-      // sidepanel.style.width = "400px";
+      if (selectedID.match(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/g)) {
+        $("#mySidepanel").html(response).width(400);
+      } else {
+        alert('yay?')
+      }
+
     },
   });
 });
@@ -144,7 +147,7 @@ $(function () {
       var m = $("#myModal").find("*").addBack();
       $(m).fadeOut(200, function () {
         // modal.style.display = "none";
-        $(modal).empty()
+        $(modal).empty();
       });
     }
   };

@@ -1,11 +1,18 @@
 const fetchColleague = require("../../services/dbService/fetchColleague");
 const upsertColleague = require("../../services/dbService/upsertColleague");
 const deleteColleague = require("../../services/dbService/deleteColleague");
+const fetchColleagues = require("../../services/dbService/fetchColleagues");
 
 const express = require("express");
 const route = express.Router();
 
 route
+
+  .get("/", async (req, res) => {
+    const data = await fetchColleagues();
+
+    res.render("index", { colleagues: data });
+  })
 
   .get("/new", (req, res) => {
     res.render("colleagues/new");
@@ -25,7 +32,7 @@ route
   .delete("/:id", async (req, res) => {
     const { id } = req.params;
     const result = await deleteColleague(id);
-    res.send({result});
+    res.send({ result });
   });
 
-module.exports = route;
+ module.exports = route;

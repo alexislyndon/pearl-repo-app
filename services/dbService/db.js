@@ -5,7 +5,7 @@ const db = new Pool({
   host: "localhost",
   port: "5432",
   password: "qwe123",
-  database: "repository",
+  database: "repo-1",
 });
 console.log("db connected");
 

@@ -1,0 +1,43 @@
+<!-- <div id="app"> -->
+<div class="container"></div>
+<div id="mySidepanel" class="sidepanel"></div>
+<div id="myModal" class="modal"></div>
+<div>
+  <a href="/"><img src="/PearlPay-Logo.png" alt="" style="height: 40px" /></a>
+</div>
+<h2 style="display: inline">Workgroups</h2>
+<div class="tabs">
+  <div class="tab1"><a href="#/colleagues">Colleagues</a></div>
+  <div class="tab2"><a href="#/workgroups">Workgroup</a></div>
+  <div class="tab3"><a href="#">Apps</a></div>
+  <div class="tab4"><a href="#">App Admins</a></div>
+</div>
+<div class="success-msg">This is a success message.</div>
+<table id="workgroups">
+  <thead>
+    <tr>
+      <th>Workgroup Name</th>
+      <th>WG Admins</th>
+      <th>Job Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% workgroups.map(i => { %>
+    <tr data-wg-id="<%= i.id%>">
+      <td><%= i.wgname + %></td>
+      <td class="userids">
+        <% i.u_id.map(ii => { %>
+        <p data-user-id="<%= ii.uuid %>"><%= ii.user %></p>
+      </td>
+      <% }); %>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>
+
+<script src="jquery.js"></script>
+<script src="jquery-hashchange.js"></script>
+<script src="app.js"></script>
+<script src="newColleague.js"></script>
+<script src="viewColleague.js"></script>
+<!-- </div>s -->
