@@ -1,9 +1,9 @@
 div.tabs {
   position: relative;
-  z-index: 0;
+  /* z-index: 0; */
 }
 
-div.tabs > div {
+div.tabs > div.tab {
   padding: 3px;
   display: inline;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -11,9 +11,14 @@ div.tabs > div {
   border-top: 2px solid black;
   border-right: 2px solid black; */
   background-color: white;
-}
-div.tabs > div > a {
   text-decoration: none;
   color: black;
   font-size: larger;
+  border-bottom: 2px #b3b2b2;
+}
+
+.active-tab {
+  border-left: 2px solid #b3b2b2;
+  border-top: 2px solid #b3b2b2;
+  border-right: 2px solid #b3b2b2;
 }

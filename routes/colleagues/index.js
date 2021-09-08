@@ -11,7 +11,7 @@ route
   .get("/", async (req, res) => {
     const data = await fetchColleagues();
 
-    res.render("index", { colleagues: data });
+    res.render("colleagues/index", { colleagues: data });
   })
 
   .get("/new", (req, res) => {

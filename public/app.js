@@ -1,7 +1,7 @@
 var modules = {};
 // var modal = $("#myModal");
 var modal = document.getElementById("myModal");
-var selectedID;
+var selectedID, active;
 var sidepanel = $("#mySidepanel");
 
 $(window).on("hashchange", function () {
@@ -15,18 +15,21 @@ $(window).on("hashchange", function () {
     url = "/" + url;
   }
 
-  // location.hash = url;
-  ////////changed
   app.ajax({
     url: url,
     success: function (response) {
       selectedID = url.split("/").pop();
-      if (selectedID.match(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/g)) {
+      active = selectedID;
+      if (
+        selectedID.match(
+          /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/g
+        )
+      ) {
         $("#mySidepanel").html(response).width(400);
       } else {
-        alert('yay?')
+        selectedID = "";
+        $("#main").html(response);
       }
-
     },
   });
 });
@@ -94,32 +97,17 @@ $.ajaxSetup({
 
 $(function () {
   var body = $("body");
-  // var span = document.getElementsByClassName("close")[0];
-  // span.onclick = function () {
-  //   modal.style.display = "none";
-  // };
-  // // When the user clicks anywhere outside of the modal, close it
 
   $("table tbody tr").on("click", function () {
     var tr = $(this);
     var colID = tr.data("col-id");
-    // debugger
+
     if (selectedID) {
-      //if there something selected
-      //just closes the sidepanel
       $(".sidepanel").width(0);
       selectedID = "";
       location.hash = "";
     } else {
       location.hash = "/colleagues/" + colID;
-      // app.ajax({
-      //   url: "/colleagues/" + colID,
-      //   success: function (res) {
-      //     $(".sidepanel").html(res);
-      //     sidepanel.style.width = "400px";
-      //     selectedID = colID;
-      //   },
-      // });
     }
   });
 
@@ -139,6 +127,18 @@ $(function () {
     });
   });
 
+  //tabs
+
+  $(".tab").on("click", function (e) {
+    // e.preventDefault();
+    $(".tab").removeClass("active-tab");
+    var tab = $(this);
+    location.hash = tab.data("url");
+    tab.addClass("active-tab");
+  });
+
+  //tabs end
+
   window.onclick = function (event) {
     var modal = document.getElementById("myModal");
 
@@ -151,20 +151,6 @@ $(function () {
       });
     }
   };
-
-  // var side = $(".sidepanel").find("*").addBack();
-
-  // $("html > *")
-  //   .not(side)
-  //   .on("click", function (e) {
-  //     // sidepanel.css('width', $(sidepanel).width() > 0 ? '0' : '');
-  //     if ($(sidepanel).width() > 0) {
-  //       sidepanel.style.width = "0px";
-  //       selectedID = "";
-  //     }
-  //   });
-
-  //
 
   const target = document.querySelector(".sidepanel");
   document.addEventListener("click", (event) => {

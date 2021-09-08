@@ -18,4 +18,3 @@ route
   });
 
 module.exports = route;
-

@@ -19,7 +19,6 @@
       style="display: none"
     />
     <div id="app">
-      <div class="container"></div>
       <div id="mySidepanel" class="sidepanel"></div>
       <div id="myModal" class="modal"></div>
       <div>
@@ -27,57 +26,12 @@
           ><img src="/PearlPay-Logo.png" alt="" style="height: 40px"
         /></a>
       </div>
-      <h2 style="display: inline">Colleages</h2>
-      <span>
-        <button
-          id="add-colleague"
-          style="margin: 20px; width: 40px; height: 25px"
-        >
-          Add
-        </button>
-      </span>
-      <div class="tabs">
-        <div class="col-tab"><a href="#/colleagues">Colleagues</a></div>
-        <div class="wg-tab"><a href="#/workgroups">Workgroup</a></div>
-        <div class="app-tab"><a href="#/apps">Apps</a></div>
-        <div class="tab4"><a href="#/appadmingroups">App Admins</a></div>
-      </div>
-      <div class="success-msg">This is a success message.</div>
-      <table id="colleagues">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email Address</th>
-            <th>Job Title</th>
-            <th>Workgroup</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% colleagues.map((i) =>{ %>
-          <tr
-            data-col-id="<%= i.id%>"
-            oncontextmenu="javascript:alert('success!');return false;"
-          >
-            <td><%= i.firstname + " " + i.lastname %></td>
-            <td><%= i.personalemail %></td>
-            <td><%= i.jobtitle %></td>
-            <td>some workgroup</td>
-            <td>
-              <%= i.startdate.toLocaleDateString("en-US", {month:'short', day:
-              'numeric', year: 'numeric'}) %>
-            </td>
-            <td>
-              <%= i.enddate?.toLocaleDateString("en-US", {month:'short', day:
-              'numeric', year: 'numeric'}) %>
-            </td>
-            <!-- <td><a href="javascript:" class="view-link">View</a></td> -->
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
+      <!-- <h2 style="display: inline">Colleages</h2> -->
+      <div class="tabs"><%- include('partials/tabs.ejs') %></div>
+      <br />
+    </span>
+    <div id="main" >
+        
     </div>
   </body>
   <script src="jquery.js"></script>

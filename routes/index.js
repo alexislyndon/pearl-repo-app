@@ -5,7 +5,7 @@ const fetchColleagues = require("../services/dbService/fetchColleagues");
 router.get("/", async (req, res) => {
   const data = await fetchColleagues();
 
-  res.render("index", { colleagues: data });
+  res.render("index", { colleagues: null });
 });
 
 module.exports = router;

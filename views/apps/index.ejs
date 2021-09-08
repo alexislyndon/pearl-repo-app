@@ -1,14 +1,14 @@
 <div class="success-msg">This is a success message.</div>
-<table class="main-tbl" id="workgroups">
+<table class="main-tbl" id="apps">
   <thead>
     <tr>
-      <th>Workgroup Name</th>
-      <th>WG Admins</th>
+      <th>App Name</th>
+      <th>App Admins</th>
     </tr>
   </thead>
   <tbody>
     <% workgroups.forEach(element => { %>
-    <tr data-wg-id="<%= element.wg_id %> ">
+    <tr data-a-id="<%= element.a_id %> ">
       <td><%= element.wgname %></td>
 
       <td>
