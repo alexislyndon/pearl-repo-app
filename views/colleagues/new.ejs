@@ -9,6 +9,13 @@
     <label for="lastname">Last Name</label>
     <input type="text" name="lastname" required /> <br />
 
+    <label for="workgroup">Workgroup</label>
+    <select name="workgroup" id="workgroup">
+      <% workgroups.forEach(element => { %>
+       <option value="<%=element.wg_id%>"><%= element.wgname %> </option>
+      <% }) %>
+    </select>
+
     <label for="jobtitle">Job Title</label>
     <input type="text" name="jobtitle" required /> <br />
 

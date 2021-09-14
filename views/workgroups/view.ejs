@@ -1,0 +1,36 @@
+<div class="wg-view view" data-scripts="view">
+  <a href="" class="closebtn">&times;</a>
+  <br />
+  <h2>View Workgroup</h2>
+  <form action="" class="view">
+    <input type="hidden" name="id" value="<%= id %>" />
+    <label for="name">Workgroup Name</label>
+    <input type="text" name="name" id="" value="<%= name%>" />
+    <br />
+    <h3>Admins</h3>
+    <ul>
+      <% admins?.forEach(element => { %>
+      <li data-user-id="<%=element.uuid%>"><%= element.name %></li>
+      <% }) %>
+    </ul>
+    <br />
+    <div class="ui-front admins">
+      <h4>Add Admins</h4>
+      <input type="hidden" name="member" />
+      <input id="autoc" title='Type any name' />
+      <button class="add-wg-admin">Add</button>
+    </div>
+    <br />
+    <h3>Members</h3>
+    <ul>
+      <% members?.forEach(element => { %>
+      <li data-user-id="<%=element.uuid%>"><%=element.name%></li>
+      <input type="hidden" name="members" id="" value="<%=element.uuid%>" />
+      <% }) %>
+    </ul>
+    <br /><br />
+    <input type="submit" value="Save" id="save-btn" />
+    <input type="button" value="Delete" id="delete-btn" />
+  </form>
+</div>
+<link href="jquery-ui.min.css" rel="stylesheet" />

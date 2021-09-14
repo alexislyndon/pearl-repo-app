@@ -1,29 +1,44 @@
-<div class="col-view" data-scripts="view-colleague">
+<div class="col-view view" data-scripts="view">
   <a href="" class="closebtn">&times;</a>
-<br>
+  <br>
 
-<% const offset = startdate.getTimezoneOffset()
-startdate = new Date(startdate.getTime() - (offset*60*1000))
-startdate.toISOString().split('T')[0] 
+  <% var startdate = c.startdate; var enddate = c.enddate;
+  const offset = startdate.getTimezoneOffset()
+  startdate = new Date(startdate.getTime() - (offset*60*1000))
+  startdate.toISOString().split('T')[0] 
 
-if(enddate) {
-  const offset = enddate.getTimezoneOffset()
-  enddate = new Date(enddate.getTime() - (offset*60*1000))
-  enddate.toISOString().split('T')[0] 
-}
+  if(enddate) {
+    const offset = enddate.getTimezoneOffset()
+    enddate = new Date(enddate.getTime() - (offset*60*1000))
+    enddate.toISOString().split('T')[0] 
+  }
 
-%> 
-<h2>View Colleague</h2>
+  %> 
+  <h2>View Colleague</h2>
   <form action="" class="view" >
-    <input type="hidden" name="id" value="<%= id %>" />
+    <input type="hidden" name="id" value="<%= c.id %>" />
     <label for="firstname">First Name</label>
-    <input type="text" name="firstname" id="" value="<%= firstname%>">
+    <input type="text" name="firstname" id="" value="<%= c.firstname%>">
     <br>
     <label for="lastname">Last Name</label>
-    <input type="text" name="lastname" value="<%= lastname%>" />
+    <input type="text" name="lastname" value="<%= c.lastname%>" />
     <br>
+
+    <%  var wgid = c.wgid
+        var wgname = c.wgname
+    %> 
+    <label for="workgroup">Workgroup</label>
+    <select name="workgroup" id="workgroup">
+    <% wg.forEach(element => { %>
+      <% if (element.wg_id==wgid) { %>
+        <option value="<%=element.wg_id%>" selected  ><%= element.wgname %> </option>
+        <% }else{ %>
+        <option value="<%=element.wg_id%>"  ><%= element.wgname %> </option>
+    <% }}) %>
+  </select> <br>
+
     <label for="jobtitle">Job Title</label>
-    <input type="text" name="jobtitle" value="<%= jobtitle%>" />
+    <input type="text" name="jobtitle" value="<%= c.jobtitle%>" />
     <br>
     <label for="startdate">Start Date</label>
     <input type="date" name="startdate" value="<%=
@@ -34,10 +49,16 @@ if(enddate) {
     enddate?.toISOString().split('T')[0] %>" />
     <br>
     <label for="personalemail">Personal Email</label>
-    <input type="email" name="personalemail" value="<%= personalemail%>" />
+    <input type="text" name="personalemail" value="<%= c.personalemail%>" />
+    <br>
+    <label for="workemail">Work Email</label>
+    <input type="text" name="workemail" value="<%= c.workemail%>" />
+
     <br><br>
     <input type="submit" value="Save" id="save-btn">
     <input type="button" value="Delete" id="delete-btn" >
   </form> 
 </div>
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- <script src="/viewColleague.js"></script> -->

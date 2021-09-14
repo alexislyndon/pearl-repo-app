@@ -1,10 +1,14 @@
 const db = require("./db");
 
 //fetch all colleagues
-module.exports = async (colID) => {
+module.exports = async (id) => {
   const result = await db.query(
-    `SELECT col_id id, firstname, lastname, jobtitle, startdate, enddate, personalemail FROM colleagues WHERE col_id = $1`,
-    [colID]
+    `SELECT 
+    FROM workgroups wg
+    LEFT JOIN colleagues col
+    ON wg.wg_id = col.wg_id
+    WHERE col_id NOT IN ()`,
+    [id]
   );
   const data = result.rows[0];
 

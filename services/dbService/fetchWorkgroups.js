@@ -17,6 +17,7 @@ module.exports = async () => {
       GROUP BY ff.wg_id, ff.wgname, ff.uids, col.firstname, col.lastname) xx
     group by xx.wg_id, xx.wgname`
   );
+
   const data = result.rows;
   return data;
 };

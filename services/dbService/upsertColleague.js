@@ -9,14 +9,17 @@ module.exports = async ({
   enddate,
   personalemail,
   id,
+  registrarid,
+  workgroup,
 }) => {
   if (!id) {
     id = uuid();
+    date = new Date()
 
     const result = await db.query(
       `
-        INSERT INTO colleagues (firstname,lastname,jobtitle,startdate, enddate, personalemail, col_id)
-            VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        INSERT INTO colleagues (firstname,lastname,jobtitle,startdate, enddate, personalemail, col_id, registrar_id, wg_id, datetimesent)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, to_timestamp(${Date.now()/1000}))`,
       [
         firstname || null,
         lastname || null,
@@ -25,6 +28,8 @@ module.exports = async ({
         enddate || null,
         personalemail || null,
         id || null,
+        registrarid || "348c83c7-e92e-4116-b809-ca5665208fac",
+        workgroup || null,
       ]
     );
   } else {
@@ -44,7 +49,7 @@ module.exports = async ({
     );
   }
 
-  return res = {
+  return (res = {
     firstname,
     lastname,
     jobtitle,
@@ -52,5 +57,5 @@ module.exports = async ({
     enddate,
     personalemail,
     id,
-  };
+  });
 };

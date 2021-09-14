@@ -1,4 +1,28 @@
-<div data-url="/colleagues" class="tab col-tab tab1">Colleagues</div>
-<div data-url="/workgroups" class="tab wg-tab tab2">Workgroup</div>
-<div data-url="/apps" class="tab app-tab tab3">Apps</div>
-<div data-url="/appadmingroups" class="tab aag-tab tab4">App Admins</div>
+<%=
+// <div data-url="/colleagues" class="tab col-tab tab1">Colleagues</div>
+// <div data-url="/workgroups" class="tab wg-tab tab2">Workgroup</div>
+// <div data-url="/apps" class="tab app-tab tab3">Apps</div>
+//<div data-url="/appadmingroups" class="tab aag-tab tab4">App Admins</div>
+%>
+
+<% tabs?.forEach(e => { %>
+    <% if (e.menu == 'col') { %>
+        <div data-url="/colleagues" class="tab col-tab tab1">Colleagues</div>
+    <% } %>
+    <% if (e.menu == 'wg') { %>
+        <div data-url="/workgroups" class="tab wg-tab tab2">Workgroup</div>
+    <% } %>
+    <% if (e.menu == 'a') { %>
+        <div data-url="/apps" class="tab wg-tab tab2">Workgroup</div>
+    <% } %>
+<% }) %>
+
+<% if (true) { %>
+    <div data-url="/colleagues" class="tab col-tab tab1">Colleagues</div>
+<% } %>
+<% if (true) { %>
+    <div data-url="/workgroups" class="tab wg-tab tab2">Workgroup</div>
+<% } %>
+<% if (true) { %>
+    <div data-url="/apps" class="tab wg-tab tab2">Apps</div>
+<% } %>

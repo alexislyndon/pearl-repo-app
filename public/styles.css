@@ -1,7 +1,11 @@
+html {
+  font-family: 'Libre Franklin', sans-serif;
+}
 #app {
   width: 80%;
   margin: auto;
   margin-top: 50px;
+  
 }
 
 .main-tbl {
@@ -63,4 +67,8 @@ h2 {
 
 .tab:hover {
   cursor: pointer;
+}
+
+div.view {
+  padding: 10px;
 }

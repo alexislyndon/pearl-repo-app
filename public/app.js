@@ -3,10 +3,13 @@ var modules = {};
 var modal = document.getElementById("myModal");
 var selectedID, active;
 var sidepanel = $("#mySidepanel");
+var u = "";
 
 $(window).on("hashchange", function () {
   var url = location.hash.replace(/#/g, "");
-  // debugger;
+  if (url === "/") {
+  }
+  if (url === "/" + active) return;
   if (!url) {
     return $("#mySidepanel").empty();
   }
@@ -19,7 +22,10 @@ $(window).on("hashchange", function () {
     url: url,
     success: function (response) {
       selectedID = url.split("/").pop();
-      active = selectedID;
+      active = url.split("/")[1];
+      if (url === "/") {
+        $(document).html(response);
+      }
       if (
         selectedID.match(
           /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/g
@@ -79,7 +85,11 @@ var app = (function () {
           }
         };
       }
-
+      // options.data = { user: u };
+      options.headers = {
+        "Content-Type": "application/json",
+        user: u,
+      };
       $.ajax(options);
     },
   };
@@ -95,19 +105,73 @@ $.ajaxSetup({
   },
 });
 
+//document.ready
 $(function () {
   var body = $("body");
 
-  $("table tbody tr").on("click", function () {
+  const target = document.querySelector(".sidepanel");
+  const tabs = document.querySelector(".tabs");
+  document.addEventListener("click", (event) => {
+    // event.preventDefault();
+    const withinBoundaries = event.composedPath().includes(target);
+    if (
+      selectedID?.match(
+        /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/g
+      )
+    ) {
+      //if sidepanel is open
+      if (withinBoundaries) {
+        // target.innerText = "Click happened inside element";
+      } else if (event.composedPath().includes(tabs)) {
+        selectedID = "";
+
+        $(".sidepanel").empty().width(0);
+      } else {
+        $(".sidepanel").empty().width(0);
+        selectedID = "";
+        location.hash = "/" + active;
+      }
+    }
+  });
+
+  $("#select-user").change(function () {
+    u = $(this).val();
+    alert(`user changed: ${u}`);
+    $.ajax({
+      url: "/",
+      data: { user: u },
+      headers: {
+        "Content-Type": "application/json",
+      },
+      success: function (res) {
+        location.hash = "/";
+      },
+    });
+  });
+
+  $("#main").on("click", "table#colleagues tbody tr", function () {
     var tr = $(this);
     var colID = tr.data("col-id");
 
     if (selectedID) {
-      $(".sidepanel").width(0);
-      selectedID = "";
-      location.hash = "";
+      // $(".sidepanel").width(0);
+      // selectedID = "";
+      // location.hash = active;
     } else {
       location.hash = "/colleagues/" + colID;
+    }
+  });
+
+  $("#main").on("click", "table#workgroups tbody tr", function () {
+    var tr = $(this);
+    var wg_id = tr.data("wg-id");
+
+    if (selectedID) {
+      // $(".sidepanel").width(0);
+      // selectedID = "";
+      // location.hash = active;
+    } else {
+      location.hash = "/workgroups/" + wg_id;
     }
   });
 
@@ -117,7 +181,7 @@ $(function () {
     selectedID = "";
   });
 
-  $("#add-colleague").on("click", function () {
+  $("#main").on("click", "#add-colleague", function () {
     app.ajax({
       url: "/colleagues/new",
       success: function (res) {
@@ -152,23 +216,45 @@ $(function () {
     }
   };
 
-  const target = document.querySelector(".sidepanel");
-  document.addEventListener("click", (event) => {
-    const withinBoundaries = event.composedPath().includes(target);
-
-    if (selectedID) {
-      //if sidepanel is open
-      if (withinBoundaries) {
-        // target.innerText = "Click happened inside element";
-      } else {
-        $(".sidepanel").width(0);
-        selectedID = "";
-        location.hash = "";
-      }
-    }
-  });
   //
+
+  var availableTags = [
+    { id: "k", label: "eaaa" },
+    { id: "???", label: "bebbb" },
+  ];
+
+  $("#autocomplete").autocomplete({
+    source: availableTags,
+    open: function () {
+      console.log("opened");
+    },
+    select: function (event, ui) {
+      $("#tosend").val(ui.item.id);
+    },
+  });
+
+  $("#autocomplete").on("autocompleteopen", function (event, ui) {
+    // alert("open");
+    console.log("open");
+  });
+
+  $("form#test").on("submit", function (e) {
+    e.preventDefault();
+    var form = $(this);
+    var formData = form.serialize();
+    alert("y?");
+  });
+
+  $("#dialog-link, #icons li").hover(
+    function () {
+      $(this).addClass("ui-state-hover");
+    },
+    function () {
+      $(this).removeClass("ui-state-hover");
+    }
+  );
 
   //end
 });
+
 $(window).trigger("hashchange");

@@ -15,6 +15,11 @@ route
     const { id } = req.params;
     const data = await getOneWorkgroup(id);
     res.render("workgroups/view", data);
-  });
+  })
+
+  .get('/:id/nadmin', async (req, res) => {
+    const {id} = req.params;
+    // const data = await 
+  })
 
 module.exports = route;
