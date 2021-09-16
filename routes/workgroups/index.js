@@ -2,6 +2,7 @@ const fetchWorkgroups = require("../../services/dbService/fetchWorkgroups");
 const getOneWorkgroup = require("../../services/dbService/getOneWorkgroup");
 
 const express = require("express");
+const getWorkgroupnonAdmins = require("../../services/dbService/getWorkgroupnonAdmins");
 const route = express.Router();
 
 route
@@ -17,9 +18,10 @@ route
     res.render("workgroups/view", data);
   })
 
-  .get('/:id/nadmin', async (req, res) => {
-    const {id} = req.params;
-    // const data = await 
-  })
+  .get("/:id/notadmins", async (req, res) => {
+    const { id } = req.params;
+    const data = await getWorkgroupnonAdmins(id);
+    res.send(data);
+  });
 
 module.exports = route;

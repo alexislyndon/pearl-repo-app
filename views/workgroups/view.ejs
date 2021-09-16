@@ -5,32 +5,39 @@
   <form action="" class="view">
     <input type="hidden" name="id" value="<%= id %>" />
     <label for="name">Workgroup Name</label>
-    <input type="text" name="name" id="" value="<%= name%>" />
+    <input type="text" name="name" id="" value="<%= name%>" disabled/>
     <br />
     <h3>Admins</h3>
-    <ul>
+    <div class="list admins" >
       <% admins?.forEach(element => { %>
-      <li data-user-id="<%=element.uuid%>"><%= element.name %></li>
+        <div><a class="remove inline" href="javascript:">Remove</a>    <p class="inline" data-user-id="<%=element.uuid%>"><%= element.name %></p></div>
       <% }) %>
-    </ul>
-    <br />
-    <div class="ui-front admins">
-      <h4>Add Admins</h4>
-      <input type="hidden" name="member" />
-      <input id="autoc" title='Type any name' />
-      <button class="add-wg-admin">Add</button>
     </div>
     <br />
+    <div class="ui-front">
+      <h4>Add Admins</h4>
+      <input type="hidden" name="" id="stage-admin" />
+      <input id="autoc" title="Type any name" />
+      <a href="javascript:" class="add-admin">Add</a>
+      <hr>
+      <div class="list stage">
+
+      </div>
+    </div>
+    <!-- <br />
     <h3>Members</h3>
     <ul>
-      <% members?.forEach(element => { %>
-      <li data-user-id="<%=element.uuid%>"><%=element.name%></li>
-      <input type="hidden" name="members" id="" value="<%=element.uuid%>" />
-      <% }) %>
-    </ul>
+      <%# members?.forEach(element => { %>
+      <li data-user-id="<%#=element.uuid%>"><%#=element.name%></li>
+      <input type="hidden" name="members" id="" value="<%#=element.uuid%>" />
+      <%# }) %>
+    </ul> -->
     <br /><br />
+
     <input type="submit" value="Save" id="save-btn" />
     <input type="button" value="Delete" id="delete-btn" />
+    <div class="indicator"></div>
+    <div class="indicator unsaved">Unsaved</div>
   </form>
 </div>
 <link href="jquery-ui.min.css" rel="stylesheet" />

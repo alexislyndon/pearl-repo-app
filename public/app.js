@@ -176,9 +176,9 @@ $(function () {
   });
 
   $("a.closebtn").on("click", function () {
-    sidepanel.style.width = "0px";
-    // sidepanel.animate({width:'0px', opacity: '0.5'})
     selectedID = "";
+
+    $(".sidepanel").empty().width(0);
   });
 
   $("#main").on("click", "#add-colleague", function () {
