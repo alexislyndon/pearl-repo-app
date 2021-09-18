@@ -1,13 +1,13 @@
-<div class="wg-view view" data-scripts="view" data-tab="workgroups">
+<div class="wg-view view" data-scripts="view" data-tab="apps">
   <a href="" class="closebtn">&times;</a>
   <br />
-  <h2>View Workgroup</h2>
-  <form action="" class="view" id="wg-form">
+  <h2>View App Details</h2>
+  <form action="" class="view" id="a-form">
     <input type="hidden" name="id" value="<%= id %>" />
-    <label for="name">Workgroup Name</label>
+    <label for="name">App Name</label>
     <input type="text" name="name" id="" value="<%= name%>" disabled/>
     <br />
-    <h3>Admins</h3>
+    <h3>App Admins</h3>
     <div class="list admins" >
       <% admins?.forEach(element => { %>
         <div><a class="remove inline" href="javascript:">Remove</a>    <p name='users' class="inline user" data-user-id="<%=element.uuid%>"><%= element.name %></p></div>
@@ -35,6 +35,7 @@
     <br /><br />
 
     <input type="submit" value="Save" id="save-btn" />
+    <!-- <input type="button" value="Delete" id="delete-btn" /> -->
     <div class="indicator"></div>
   </form>
 </div>

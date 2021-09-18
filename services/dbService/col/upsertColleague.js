@@ -1,4 +1,4 @@
-const db = require("./db");
+const db = require("../db");
 const { v4: uuid } = require("uuid");
 
 module.exports = async ({

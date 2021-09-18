@@ -142,6 +142,7 @@ $(function () {
       data: { user: u },
       headers: {
         "Content-Type": "application/json",
+        user: u,
       },
       success: function (res) {
         location.hash = "/";
@@ -149,29 +150,43 @@ $(function () {
     });
   });
 
-  $("#main").on("click", "table#colleagues tbody tr", function () {
+  // $("#main").on("click", "table#colleagues tbody tr", function () {
+  //   var tr = $(this);
+  //   var colID = tr.data("col-id");
+
+  //   if (selectedID) {
+  //     // $(".sidepanel").width(0);
+  //     // selectedID = "";
+  //     // location.hash = active;
+  //   } else {
+  //     location.hash = "/colleagues/" + colID;
+  //   }
+  // });
+
+  // $("#main").on("click", "table#workgroups tbody tr", function () {
+  //   var tr = $(this);
+  //   var wg_id = tr.data("wg-id");
+
+  //   if (selectedID) {
+  //     // $(".sidepanel").width(0);
+  //     // selectedID = "";
+  //     // location.hash = active;
+  //   } else {
+  //     location.hash = "/workgroups/" + wg_id;
+  //   }
+  // });
+
+  $("#main").on("click", "table tbody tr", function () {
+    var tab = $(this).closest("table").attr("id");
     var tr = $(this);
-    var colID = tr.data("col-id");
+    var id = tr.data("id");
 
     if (selectedID) {
       // $(".sidepanel").width(0);
       // selectedID = "";
       // location.hash = active;
     } else {
-      location.hash = "/colleagues/" + colID;
-    }
-  });
-
-  $("#main").on("click", "table#workgroups tbody tr", function () {
-    var tr = $(this);
-    var wg_id = tr.data("wg-id");
-
-    if (selectedID) {
-      // $(".sidepanel").width(0);
-      // selectedID = "";
-      // location.hash = active;
-    } else {
-      location.hash = "/workgroups/" + wg_id;
+      location.hash = `/${tab}/` + id;
     }
   });
 
@@ -215,44 +230,6 @@ $(function () {
       });
     }
   };
-
-  //
-
-  var availableTags = [
-    { id: "k", label: "eaaa" },
-    { id: "???", label: "bebbb" },
-  ];
-
-  $("#autocomplete").autocomplete({
-    source: availableTags,
-    open: function () {
-      console.log("opened");
-    },
-    select: function (event, ui) {
-      $("#tosend").val(ui.item.id);
-    },
-  });
-
-  $("#autocomplete").on("autocompleteopen", function (event, ui) {
-    // alert("open");
-    console.log("open");
-  });
-
-  $("form#test").on("submit", function (e) {
-    e.preventDefault();
-    var form = $(this);
-    var formData = form.serialize();
-    alert("y?");
-  });
-
-  $("#dialog-link, #icons li").hover(
-    function () {
-      $(this).addClass("ui-state-hover");
-    },
-    function () {
-      $(this).removeClass("ui-state-hover");
-    }
-  );
 
   //end
 });

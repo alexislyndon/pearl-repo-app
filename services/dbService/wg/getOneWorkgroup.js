@@ -1,4 +1,4 @@
-const db = require("./db");
+const db = require("../db");
 
 //fetch all colleagues
 module.exports = async (wgid) => {

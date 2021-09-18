@@ -1,18 +1,9 @@
 modules["view"] = function (html) {
-  // $(function () {
-
-  var ul = html.find("ul");
   var id = html.find('form input[name="id"]').val();
-
-  jQuery.get("/workgroups/" + id + "/notadmins", function (data) {
+  var route = $("div.view").data("tab");
+  jQuery.get(`/${route}/` + id + "/notadmins", function (data) {
     html.find("#autoc").autocomplete({ source: data });
   });
-  var availableTags = [
-    { id: "1", label: "a" },
-    { id: "1", label: "aa" },
-    { id: "1", label: "axa" },
-    { id: "1", label: "abba" },
-  ];
 
   html
     .find("#autoc")
@@ -31,54 +22,91 @@ modules["view"] = function (html) {
     var name = a.siblings("p").html();
     var obj = html.find("#autoc").autocomplete("option", "source");
     obj.unshift({ id: id, label: name });
-    JSON.stringify(obj);
-    // source.unshift({ id: id, label: name });
     $("#autoc").autocomplete("option", "source", obj);
     a.closest("div").remove();
   }
 
   //stage new admins for adding
   html.find("a.add-admin").on("click", function () {
+    if (!html.find("#stage-admin").val()) return alert("pls select a person"); //return if hidden input is empty
     var source = html.find("#autoc").autocomplete("option", "source");
     var id = html.find("#stage-admin").val();
     source = $.grep(source, function (e) {
       return e.id != id;
     });
     html.find("#autoc").autocomplete("option", "source", source);
-    console.log(
-      `id: ${html.find("#stage-admin").val()}, label: ${html
-        .find("#autoc")
-        .val()}
-      `
-    );
+    // console.log(
+    //   `id: ${html.find("#stage-admin").val()}, label: ${html
+    //     .find("#autoc")
+    //     .val()}
+    //   `
+    // );
     var el =
-      $(`<div><a class="remove inline" href="javascript:">Remove</a>    <p class="inline" data-user-id="${html
+      $(`<div><a class="remove inline" href="javascript:">Remove</a>    <p name="users" class="inline" data-user-id="${html
         .find("#stage-admin")
         .val()}">${html.find("#autoc").val()}</p></div>
       `);
 
-    html.find("#stage-admin").val("");
-    html.find("#autoc").autocomplete("close").val("");
-    html.find("div.stage").append(el);
+    // appendDiv(html.find("div.stage"), html.find("#stage-admin"), html.find("#autoc").val());
+    html.find("#stage-admin").val(""); //clear hidden input
+    html.find("#autoc").autocomplete("close").val(""); // close autocomplete and clear value
+    html.find("div.stage").append(el); //finally, append "candidate" admin to the list
 
-    var a = el.find("a.remove");
-    // console.log(a.siblings("p").data("user-id"));
+    var a = el.find("a.remove"); //bind click event handler for newly appended elements above
     a.on("click", function () {
       removeUser(a);
     });
   });
 
-  // remove admins
-  // $("div.list a").on("click", ".remove", function () {
-  //   console.log("clicked remove");
-  // });
+  function appendDiv(div, id, name) {
+    var el = `<div><a class="remove inline" href="javascript:">Remove</a>    <p name="users" class="inline" data-user-id="${id}">${name}</p></div>`;
+    $(div).append(el);
+  }
 
-  html.find("form.view").on("submit", function (e) {
+  html.find("a.remove").on("click", function () {
+    //click handler for existing admins
+    removeUser($(this));
+  });
+
+  //submit wg form
+  html.find("form#wg-form").on("submit", function (e) {
     e.preventDefault();
+    var users = html
+      .find("p[data-user-id]")
+      .map(function () {
+        return $(this).attr("data-user-id");
+      })
+      .get();
+
+    $.ajax({
+      url: `/workgroups`,
+      type: "POST",
+      data: { id: id, users: users },
+      success: function (res) {
+        $("div.stage").children().appendTo("div.admins");
+        // console.log(res);
+        $(".indicator")
+          .addClass("saved")
+          .html("Updated Successfully")
+          .show()
+          .delay(1800)
+          .fadeOut();
+        setTimeout(() => {
+          $(".indicator").removeClass("saved");
+        }, 3500);
+      },
+    });
+  });
+
+  //submit colleague form
+  html.find("form#col-form").on("submit", function (e) {
+    e.preventDefault();
+    var tab = $(this).closest("div.view").data("tab");
     var form = $(this);
     var formData = form.serialize();
+
     $.ajax({
-      url: "/colleagues",
+      url: `/${tab}`,
       type: "POST",
       data: formData,
       success: function (res) {
@@ -87,6 +115,39 @@ modules["view"] = function (html) {
           .show()
           .delay(1800)
           .fadeOut();
+        setTimeout(() => {
+          $(".indicator").removeClass("saved");
+        }, 3500);
+      },
+    });
+  });
+
+  // submit app form
+  html.find("form#a-form").on("submit", function (e) {
+    e.preventDefault();
+    var users = html
+      .find("p[data-user-id]")
+      .map(function () {
+        return $(this).attr("data-user-id");
+      })
+      .get();
+
+    $.ajax({
+      url: `/apps`,
+      type: "POST",
+      data: { id: id, users: users },
+      success: function (res) {
+        $("div.stage").children().appendTo("div.admins");
+        // console.log(res);
+        $(".indicator")
+          .addClass("saved")
+          .html("Updated Successfully")
+          .show()
+          .delay(1800)
+          .fadeOut();
+        setTimeout(() => {
+          $(".indicator").removeClass("saved");
+        }, 3500);
       },
     });
   });

@@ -1,0 +1,22 @@
+<div class="success-msg">This is a success message.</div>
+<table class="main-tbl" id="users">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Admin of</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.forEach(element => { %>
+    <tr data-id="<%= element.userr %>">
+      <td><%= element.u_name %></td>
+
+      <td>
+        <% element.userapps.forEach(u => { %>
+        <p data-user-uuid="<%= u.a_id %>"><%= u.a_name %></p>
+        <% }) %>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

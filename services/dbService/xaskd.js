@@ -11,3 +11,5 @@ on col.col_id = xx.admins
 group by xx.admins, name)) ab
 JOIN colleagues c
 on ab.admins = c.col_id`
+  //
+  //

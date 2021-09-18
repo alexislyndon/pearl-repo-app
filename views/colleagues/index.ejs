@@ -1,40 +1,38 @@
-<div data-scripts="tablefns" >
-  <span>
-    <button id="add-colleague" style="margin: 20px; width: 40px; height: 25px">
-      Add
-    </button>
-    <div class="success-msg">This is a success message.</div>
-  </span>
-  <table class="main-tbl" id="colleagues">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email Address</th>
-        <th>Job Title</th>
-        <th>Workgroup</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% colleagues.map((i) =>{ %>
-      <tr data-col-id="<%= i.id%>">
-        <td><%= i.firstname + " " + i.lastname %></td>
-        <td><%= i.personalemail %></td>
-        <td><%= i.jobtitle %></td>
-        <td><%= i.wgname %> </td>
-        <td>
-          <%= i.startdate.toLocaleDateString("en-US", {month:'short', day:
-          'numeric', year: 'numeric'}) %>
-        </td>
-        <td>
-          <%= i.enddate?.toLocaleDateString("en-US", {month:'short', day:
-          'numeric', year: 'numeric'}) %>
-        </td>
-      </tr>
-      <% }) %>
-    </tbody>
-  </table>
-</div>
+<span>
+  <button id="add-colleague" style="margin: 20px; width: 40px; height: 25px">
+    Add
+  </button>
+  <div class="success-msg">This is a success message.</div>
+</span>
+<table class="main-tbl" id="colleagues">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email Address</th>
+      <th>Job Title</th>
+      <th>Workgroup</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% colleagues.map((i) =>{ %>
+    <tr data-id="<%= i.id%>">
+      <td><%= i.firstname + " " + i.lastname %></td>
+      <td><%= i.personalemail %></td>
+      <td><%= i.jobtitle %></td>
+      <td><%= i.wgname %></td>
+      <td>
+        <%= i.startdate.toLocaleDateString("en-US", {month:'short', day:
+        'numeric', year: 'numeric'}) %>
+      </td>
+      <td>
+        <%= i.enddate?.toLocaleDateString("en-US", {month:'short', day:
+        'numeric', year: 'numeric'}) %>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
 <!-- <script src="app.js"></script> -->

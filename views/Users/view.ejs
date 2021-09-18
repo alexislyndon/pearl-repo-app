@@ -1,0 +1,35 @@
+<div class="wg-view view" data-scripts="view" data-tab="apps">
+  <a href="" class="closebtn">&times;</a>
+  <br />
+  <h2>View Colleague App Permissions</h2>
+  <form action="" class="view" id="a-form">
+    <input type="hidden" name="id" value="<%= userr %>" />
+    <label for="name">Colleague Name</label>
+    <input type="text" name="name" id="" value="<%= u_name%>" disabled/>
+    <br />
+    <h3>Admin of these apps</h3>
+    <div class="list admins" >
+      <% userapps?.forEach(element => { %>
+        <div><a class="remove inline" href="javascript:">Remove</a>    <p name='users' class="inline user" data-user-id="<%=element.a_id%>"><%= element.a_name %></p></div>
+      <% }) %>
+    </div>
+    <br />
+    <div class="ui-front">
+      <h4>Add app</h4>
+      <input type="hidden" name="" id="stage-admin" />
+      <input id="autoc" title="Type any name" />
+      <a href="javascript:" class="add-admin">Add</a>
+      <hr>
+      <div class="list stage">
+
+      </div>
+    </div>
+
+    <br /><br />
+
+    <input type="submit" value="Save" id="save-btn" />
+    <!-- <input type="button" value="Delete" id="delete-btn" /> -->
+    <div class="indicator"></div>
+  </form>
+</div>
+<link href="jquery-ui.min.css" rel="stylesheet" />

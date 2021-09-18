@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const getAdmins = require("../services/dbService/getRepoUsers");
+const getAdmins = require("../services/dbService/getUsers");
 const ejs = require("ejs");
 
 router.get("/", async (req, res) => {

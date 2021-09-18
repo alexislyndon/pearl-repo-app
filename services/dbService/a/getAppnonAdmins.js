@@ -1,4 +1,4 @@
-const db = require("./db");
+const db = require("../db");
 
 //get all users except those that are already admin of workgroup
 module.exports = async (id) => {
@@ -18,8 +18,8 @@ module.exports = async (id) => {
           WHERE xx.unnest not in 
           (
             select unnest(u_ids) 
-            from workgroups where 
-            wg_id = $1
+            from appadmingroups where 
+            a_id = $1
           )`,
     [id]
   );

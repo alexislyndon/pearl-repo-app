@@ -1,8 +1,8 @@
-const getColleague = require("../../services/dbService/getColleague");
-const upsertColleague = require("../../services/dbService/upsertColleague");
-const deleteColleague = require("../../services/dbService/deleteColleague");
-const fetchColleagues = require("../../services/dbService/fetchColleagues");
-const fetchWorkgroups = require("../../services/dbService/fetchWorkgroups");
+const getColleague = require("../../services/dbService/col/getColleague");
+const upsertColleague = require("../../services/dbService/col/upsertColleague");
+const deleteColleague = require("../../services/dbService/col/deleteColleague");
+const fetchColleagues = require("../../services/dbService/col/fetchColleagues");
+const fetchWorkgroups = require("../../services/dbService/wg/fetchWorkgroups");
 
 const express = require("express");
 const route = express.Router();
